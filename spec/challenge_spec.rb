@@ -2,7 +2,7 @@ require 'rspec'
 require 'challenge'
 
 describe DataSorter do
-  subject(:sorter) { DataSorter.new('comma_delimited', 'pipe_delimited', 'space_delimited') }
+  subject(:sorter) { DataSorter.new('comma_delimited.txt', 'pipe_delimited.txt', 'space_delimited.txt') }
 
   it "sorts by Gender (females before males) and then Last Name ascending" do
     expect(sorter.gender_sort).to eq('Hingis Martina Female 4/2/1979 Green

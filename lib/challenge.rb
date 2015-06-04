@@ -8,26 +8,40 @@ class DataSorter
     files.each do |f|
       @data += parser(f) # returns arr of arrays => [[df_1], [df_2], ...]
     end
-
-    print @data
   end
 
+  # Data ~= [LName, FName, Gender, DOB, Color]
   # Sorts by Gender (females before males) and then Last Name (ascending)
-  def gender_sort
-    # sort data
-    return @data
+  def gender_sort # [Index 2, then Index 0]
+    sorted_array = @data.sort do |a, b|
+      comp = (a[2] <=> b[2])
+      comp.zero? ? (a[0] <=> b[0]) : comp
+    end
+
+    sorted_array.map! { |arr| arr.join(' ') }
+    return sorted_array.join("\n")
   end
 
-  # Sorts by Date of Birth (ascending)
+  # Sorts by Date of Birth (ascending) [Index 3]
   def dob_sort
-    # sort data
-    return @data
+    sorted_array = @data.sort do |a, b|
+      date_a = a[3].split('/')
+      date_b = b[3].split('/')
+
+      comp = (date_a[2] <=> date_b[2])
+      comp = comp.zero? ? (date_a[0] <=> date_b[0]) : comp
+      comp.zero? ? (date_a[1] <=> date_b[1]) : comp
+    end
+
+    sorted_array.map! { |arr| arr.join(' ') }
+    return sorted_array.join("\n")
   end
 
-  # Sorts by Last Name (descending)
+  # Sorts by Last Name (descending) [Index 0]
   def last_name_sort
-    # sort data
-    return @data
+    sorted_array = @data.sort_by { |arr| arr[0] }
+    sorted_array = sorted_array.reverse.map! { |arr| arr.join(' ') }
+    return sorted_array.join("\n")
   end
 
   private
@@ -67,7 +81,7 @@ class DataSorter
       if i < 2
         formatted_array << el # Handle Last and First Names
       elsif i == 2
-        if el.upcase == 'M' # Handle Gender
+        if el[0].upcase == 'M' # Handle Gender
           formatted_array << 'Male'
         else
           formatted_array << 'Female'

@@ -49,14 +49,16 @@ class DataSorter
   end
 
   private
-  # Should Return a Hash with Information
+  # Assists in Parsing Data, Takes in an Array of Fields broken by Delimiters
+  # Should Return a Hash with Proper Key/Value Pairs
   def clean_data(arr)
     formatted_data = {}
 
-    arr.delete_at(2) if arr.length > 5 # drop initials
+    arr.delete_at(2) if arr.length > 5 # Drop Initials
 
     arr.each_with_index do |el, i|
-      el.gsub!(/\s+/, '') # Remove any remaining whitespace/new line characters
+      # Remove any remaining Whitespace/New Line Characters
+      el.gsub!(/\s+/, '')
 
       case i
       when 0
@@ -70,7 +72,7 @@ class DataSorter
           formatted_data[:date] = el
         elsif el.include?('-')
           formatted_data[:date] = el.gsub('-', '/')
-        else # Handle Colors
+        else
           formatted_data[:fav_color] = el
         end
       end
@@ -79,7 +81,7 @@ class DataSorter
     formatted_data
   end
 
-  # Handles File Input, splitting File Lines into Arrays via chosen delimiters
+  # Handles Program Input, splitting Files into Lines into Delimited Arrays
   # Returns an Array of Hashes/Data Objects [{Last name: 'x', ...}, {}, {}]
   def parser(file)
     delimiter = @default_delimiter
@@ -94,8 +96,8 @@ class DataSorter
       end
     end
 
-    input_rows.each_with_index do |row, i|
-      fields = row.split(delimiter) # arr of fields
+    input_rows.each do |line|
+      fields = line.split(delimiter)
       parsed_file << clean_data(fields)
     end
 

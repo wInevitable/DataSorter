@@ -51,6 +51,7 @@ class DataSorter
   private
   # Assists in Parsing Data, Takes in an Array of Fields broken by Delimiters
   # Should Return a Hash with Proper Key/Value Pairs
+  # TODO Feels a little hacky...a better way?
   def clean_data(arr)
     formatted_data = {}
 
@@ -106,6 +107,7 @@ class DataSorter
 
   # Handles Program Output
   # Takes Sorted Data and Returns (or optionally prints) in Desired Order
+  # TODO Feels a little hacky...a better way?
   def render(sorted_array)
     # Orders each specific Object in attribute order
     # Desired Order = [LName, FName, Gender, DOB, Color]

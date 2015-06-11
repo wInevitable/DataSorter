@@ -1,5 +1,5 @@
 require 'rspec'
-require 'challenge'
+require 'data_sorter'
 
 describe DataSorter do
   subject(:sorter) { DataSorter.new('comma_delimited.txt', 'pipe_delimited.txt', 'space_delimited.txt') }
